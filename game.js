@@ -59,12 +59,20 @@ function restartGame() {
 
 function nextLevel(levelId) {
     showScreen(levelId);
+    if (levelId === 'portal') initPortal();
     if (levelId === 'inventory') initInventory();
     if (levelId === 'world') initWorld();
     if (levelId === 'memory') initMemory();
     if (levelId === 'win') playSound('sound-win');
     else playSound('sound-click');
 }
+
+window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#screen-', '');
+    if (screens.includes(hash)) {
+        nextLevel(hash);
+    }
+});
 
 // --- Level 1: Portal (Syllables) ---
 const syllableGroups = [

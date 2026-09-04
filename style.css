@@ -56,6 +56,12 @@ body, html {
     z-index: 10;
 }
 
+.screen:target {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 25 !important;
+}
+
 #screen-start { background-image: url('assets/1.jpeg'); }
 #screen-portal { background-image: url('assets/2.jpeg'); }
 #screen-inventory { background-image: url('assets/3.jpeg'); }
