@@ -282,3 +282,10 @@ if (document.readyState === 'loading') {
     initWorld();
     initMemory();
 }
+
+// Register Service Worker for 100% Offline Capability
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+}

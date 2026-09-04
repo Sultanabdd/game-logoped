@@ -1,0 +1,22 @@
+{
+  "name": "Роблокс: Миссия звука [Р]",
+  "short_name": "Звук [Р]",
+  "description": "Логопедическая интерактивная игра по звуку Р",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1e272e",
+  "theme_color": "#00a8ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/6.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "assets/6.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
