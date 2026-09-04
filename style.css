@@ -70,8 +70,8 @@ body, html {
 #screen-start { background-image: url('assets/1.jpeg'); }
 #screen-portal { background-image: url('assets/2.jpeg'); }
 #screen-inventory { background-image: url('assets/3.jpeg'); }
-#screen-world { background-image: url('assets/4.jpeg'); }
-#screen-memory { background-image: url('assets/4.jpeg'); }
+#screen-world { background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('assets/4.jpeg'); }
+#screen-memory { background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('assets/4.jpeg'); }
 #screen-win { background-image: url('assets/5.jpeg'); }
 
 button, .crystal, .chest-item, .action-zone, .memory-item {
@@ -558,6 +558,9 @@ a, a:link, a:visited, a:hover, a:active {
     text-align: center;
     color: white;
     max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     transform: scale(0.8);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 2px solid var(--accent);
