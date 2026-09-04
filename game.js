@@ -177,16 +177,34 @@ function closeActionModal() {
     }
 }
 
-// --- Level 4: Memory ---
+const itemPhrases = {
+    'РАКЕТА': 'Да! В игре была ракета!',
+    'КОРОНА': 'Да! В игре была корона!',
+    'РОЛИКИ': 'Да! В игре были ролики!',
+    'РУБИН': 'Да! В игре был рубин!',
+    'РОБОТ': 'Да! В игре был робот!',
+    'РАЦИЯ': 'Да! В игре была рация!'
+};
+
 function initMemory() {
-    const cards = Array.from(document.querySelectorAll('#memory-container .memory-item'));
+    const container = document.getElementById('memory-container');
+    if (!container) return;
+
+    // Shuffle cards so pairs are never adjacent or under each other
+    const cards = Array.from(container.querySelectorAll('.memory-item'));
+    for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        container.appendChild(cards[j]);
+    }
+
+    const shuffledCards = Array.from(container.querySelectorAll('.memory-item'));
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
     let matches = 0;
     const totalPairs = 6;
     
-    cards.forEach(card => {
+    shuffledCards.forEach(card => {
         card.classList.remove('revealed', 'correct');
         const img = card.querySelector('img');
         if (img) img.style.opacity = '0';
@@ -212,7 +230,7 @@ function initMemory() {
                 secondCard.classList.add('correct');
                 const name = this.dataset.name;
                 const feedback = document.getElementById('memory-sentence');
-                if (feedback) feedback.textContent = `Да! В игре была ${name.toLowerCase()}!`;
+                if (feedback) feedback.textContent = itemPhrases[name] || `Да! В игре был(а) ${name.toLowerCase()}!`;
                 matches++;
                 firstCard = null;
                 secondCard = null;
@@ -226,7 +244,7 @@ function initMemory() {
                 }
             } else {
                 const feedback = document.getElementById('memory-sentence');
-                if (feedback) feedback.textContent = `Не угадал...`;
+                if (feedback) feedback.textContent = 'Не угадал...';
                 setTimeout(() => {
                     const img1 = firstCard ? firstCard.querySelector('img') : null;
                     const img2 = secondCard ? secondCard.querySelector('img') : null;
