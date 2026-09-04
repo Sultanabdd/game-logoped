@@ -402,6 +402,19 @@ button, .crystal, .chest-item, .action-zone, .memory-item {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
+.chest-item::before {
+    content: '🎁';
+    position: absolute;
+    font-size: 3.2rem;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.chest-item.revealed::before {
+    opacity: 0;
+    transform: scale(0.4);
+}
+
 .chest-item:hover {
     transform: scale(1.06) translateY(-4px);
     border-color: #fff;
