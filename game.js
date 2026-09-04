@@ -1,3 +1,7 @@
+// Auto-remove preview notice if JavaScript is running
+const qkNotice = document.getElementById('quicklook-notice');
+if (qkNotice) qkNotice.remove();
+
 // --- Audio Management (Safe for iOS Safari & Windows) ---
 let audioUnlocked = false;
 function unlockAudio() {

@@ -860,3 +860,27 @@ a, a:link, a:visited, a:hover, a:active {
         height: 90px;
     }
 }
+
+/* QuickLook fallback notice if JS blocked by iOS */
+.quicklook-notice {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #ffffff;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    box-sizing: border-box;
+    display: block;
+}
+.quicklook-notice a {
+    color: #f1c40f !important;
+    text-decoration: underline !important;
+    font-weight: bold;
+}
