@@ -631,7 +631,13 @@ a, a:link, a:visited, a:hover, a:active {
     height: 100%;
     object-fit: cover;
     border-radius: 16px;
+    opacity: 0 !important;
     transition: opacity 0.3s ease;
+}
+
+.memory-item.revealed img,
+.memory-item.correct img {
+    opacity: 1 !important;
 }
 
 .memory-item:hover {
@@ -685,9 +691,9 @@ a, a:link, a:visited, a:hover, a:active {
         height: 100dvh;
     }
 
-    /* Top Bar */
+    /* Top Bar safe for notch and Telegram header */
     .top-bar {
-        top: 10px;
+        top: max(env(safe-area-inset-top, 0px) + 55px, 60px);
         width: 95%;
         padding: 8px 12px;
         border-radius: 12px;
@@ -729,7 +735,7 @@ a, a:link, a:visited, a:hover, a:active {
         width: 96%;
         max-width: 380px;
         gap: 10px;
-        margin-top: 30px;
+        margin-top: 60px;
     }
     .syllable-row {
         gap: 6px;

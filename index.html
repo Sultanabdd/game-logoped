@@ -41,25 +41,25 @@
 
         <div class="syllables-container" id="syllables-container">
             <div class="syllable-row">
-                <div class="crystal crystal-direct">РА</div>
-                <div class="crystal crystal-direct">РО</div>
-                <div class="crystal crystal-direct">РУ</div>
-                <div class="crystal crystal-direct">РЫ</div>
-                <div class="crystal crystal-direct">РЭ</div>
+                <div class="crystal crystal-direct" onclick="onCrystalClick(this)">РА</div>
+                <div class="crystal crystal-direct" onclick="onCrystalClick(this)">РО</div>
+                <div class="crystal crystal-direct" onclick="onCrystalClick(this)">РУ</div>
+                <div class="crystal crystal-direct" onclick="onCrystalClick(this)">РЫ</div>
+                <div class="crystal crystal-direct" onclick="onCrystalClick(this)">РЭ</div>
             </div>
             <div class="syllable-row">
-                <div class="crystal crystal-reverse">АР</div>
-                <div class="crystal crystal-reverse">ОР</div>
-                <div class="crystal crystal-reverse">УР</div>
-                <div class="crystal crystal-reverse">ЫР</div>
-                <div class="crystal crystal-reverse">ИР</div>
+                <div class="crystal crystal-reverse" onclick="onCrystalClick(this)">АР</div>
+                <div class="crystal crystal-reverse" onclick="onCrystalClick(this)">ОР</div>
+                <div class="crystal crystal-reverse" onclick="onCrystalClick(this)">УР</div>
+                <div class="crystal crystal-reverse" onclick="onCrystalClick(this)">ЫР</div>
+                <div class="crystal crystal-reverse" onclick="onCrystalClick(this)">ИР</div>
             </div>
             <div class="syllable-row">
-                <div class="crystal crystal-intervocalic">АРА</div>
-                <div class="crystal crystal-intervocalic">ОРО</div>
-                <div class="crystal crystal-intervocalic">УРУ</div>
-                <div class="crystal crystal-intervocalic">ЫРЫ</div>
-                <div class="crystal crystal-intervocalic">ЭРЭ</div>
+                <div class="crystal crystal-intervocalic" onclick="onCrystalClick(this)">АРА</div>
+                <div class="crystal crystal-intervocalic" onclick="onCrystalClick(this)">ОРО</div>
+                <div class="crystal crystal-intervocalic" onclick="onCrystalClick(this)">УРУ</div>
+                <div class="crystal crystal-intervocalic" onclick="onCrystalClick(this)">ЫРЫ</div>
+                <div class="crystal crystal-intervocalic" onclick="onCrystalClick(this)">ЭРЭ</div>
             </div>
         </div>
         <a href="#screen-inventory" class="comic-button btn-next hidden" id="btn-next-portal" onclick="nextLevel('inventory')">Дальше</a>
@@ -78,27 +78,27 @@
         </a>
 
         <div class="chests-container" id="chests-container">
-            <div class="chest-item" data-index="0">
+            <div class="chest-item" data-index="0" onclick="onChestClick(this)">
                 <img src="assets/8.jpeg" alt="РАКЕТА">
                 <span class="chest-label">РАКЕТА</span>
             </div>
-            <div class="chest-item" data-index="1">
+            <div class="chest-item" data-index="1" onclick="onChestClick(this)">
                 <img src="assets/9.jpeg" alt="КОРОНА">
                 <span class="chest-label">КОРОНА</span>
             </div>
-            <div class="chest-item" data-index="2">
+            <div class="chest-item" data-index="2" onclick="onChestClick(this)">
                 <img src="assets/10.jpeg" alt="РОЛИКИ">
                 <span class="chest-label">РОЛИКИ</span>
             </div>
-            <div class="chest-item" data-index="3">
+            <div class="chest-item" data-index="3" onclick="onChestClick(this)">
                 <img src="assets/11.jpeg" alt="РУБИН">
                 <span class="chest-label">РУБИН</span>
             </div>
-            <div class="chest-item" data-index="4">
+            <div class="chest-item" data-index="4" onclick="onChestClick(this)">
                 <img src="assets/12.jpeg" alt="РОБОТ">
                 <span class="chest-label">РОБОТ</span>
             </div>
-            <div class="chest-item" data-index="5">
+            <div class="chest-item" data-index="5" onclick="onChestClick(this)">
                 <img src="assets/13.jpeg" alt="РАЦИЯ">
                 <span class="chest-label">РАЦИЯ</span>
             </div>
@@ -119,19 +119,19 @@
         </a>
 
         <div class="actions-container" id="actions-container">
-            <div class="action-zone" data-action="0">
+            <div class="action-zone" data-action="0" onclick="onActionClick(this, 0)">
                 <img src="assets/14.jpeg" alt="Строит ракету">
             </div>
-            <div class="action-zone" data-action="1">
+            <div class="action-zone" data-action="1" onclick="onActionClick(this, 1)">
                 <img src="assets/15.jpeg" alt="Собирает рубины">
             </div>
-            <div class="action-zone" data-action="2">
+            <div class="action-zone" data-action="2" onclick="onActionClick(this, 2)">
                 <img src="assets/16.jpeg" alt="Рубит дерево">
             </div>
-            <div class="action-zone" data-action="3">
+            <div class="action-zone" data-action="3" onclick="onActionClick(this, 3)">
                 <img src="assets/17.jpeg" alt="Вертолёт">
             </div>
-            <div class="action-zone" data-action="4">
+            <div class="action-zone" data-action="4" onclick="onActionClick(this, 4)">
                 <img src="assets/18.jpeg" alt="Грузовик">
             </div>
         </div>
@@ -161,18 +161,18 @@
         </a>
 
         <div class="memory-container" id="memory-container">
-            <div class="memory-item" data-name="РОБОТ"><img src="assets/12.jpeg" alt="РОБОТ"></div>
-            <div class="memory-item" data-name="РАКЕТА"><img src="assets/8.jpeg" alt="РАКЕТА"></div>
-            <div class="memory-item" data-name="КОРОНА"><img src="assets/9.jpeg" alt="КОРОНА"></div>
-            <div class="memory-item" data-name="РАЦИЯ"><img src="assets/13.jpeg" alt="РАЦИЯ"></div>
-            <div class="memory-item" data-name="РОЛИКИ"><img src="assets/10.jpeg" alt="РОЛИКИ"></div>
-            <div class="memory-item" data-name="РУБИН"><img src="assets/11.jpeg" alt="РУБИН"></div>
-            <div class="memory-item" data-name="КОРОНА"><img src="assets/9.jpeg" alt="КОРОНА"></div>
-            <div class="memory-item" data-name="РУБИН"><img src="assets/11.jpeg" alt="РУБИН"></div>
-            <div class="memory-item" data-name="РАКЕТА"><img src="assets/8.jpeg" alt="РАКЕТА"></div>
-            <div class="memory-item" data-name="РОЛИКИ"><img src="assets/10.jpeg" alt="РОЛИКИ"></div>
-            <div class="memory-item" data-name="РАЦИЯ"><img src="assets/13.jpeg" alt="РАЦИЯ"></div>
-            <div class="memory-item" data-name="РОБОТ"><img src="assets/12.jpeg" alt="РОБОТ"></div>
+            <div class="memory-item" data-name="РОБОТ" onclick="onMemoryClick(this)"><img src="assets/12.jpeg" alt="РОБОТ"></div>
+            <div class="memory-item" data-name="РАКЕТА" onclick="onMemoryClick(this)"><img src="assets/8.jpeg" alt="РАКЕТА"></div>
+            <div class="memory-item" data-name="КОРОНА" onclick="onMemoryClick(this)"><img src="assets/9.jpeg" alt="КОРОНА"></div>
+            <div class="memory-item" data-name="РАЦИЯ" onclick="onMemoryClick(this)"><img src="assets/13.jpeg" alt="РАЦИЯ"></div>
+            <div class="memory-item" data-name="РОЛИКИ" onclick="onMemoryClick(this)"><img src="assets/10.jpeg" alt="РОЛИКИ"></div>
+            <div class="memory-item" data-name="РУБИН" onclick="onMemoryClick(this)"><img src="assets/11.jpeg" alt="РУБИН"></div>
+            <div class="memory-item" data-name="КОРОНА" onclick="onMemoryClick(this)"><img src="assets/9.jpeg" alt="КОРОНА"></div>
+            <div class="memory-item" data-name="РУБИН" onclick="onMemoryClick(this)"><img src="assets/11.jpeg" alt="РУБИН"></div>
+            <div class="memory-item" data-name="РАКЕТА" onclick="onMemoryClick(this)"><img src="assets/8.jpeg" alt="РАКЕТА"></div>
+            <div class="memory-item" data-name="РОЛИКИ" onclick="onMemoryClick(this)"><img src="assets/10.jpeg" alt="РОЛИКИ"></div>
+            <div class="memory-item" data-name="РАЦИЯ" onclick="onMemoryClick(this)"><img src="assets/13.jpeg" alt="РАЦИЯ"></div>
+            <div class="memory-item" data-name="РОБОТ" onclick="onMemoryClick(this)"><img src="assets/12.jpeg" alt="РОБОТ"></div>
         </div>
         <h3 id="memory-sentence" class="memory-feedback"></h3>
         <a href="#screen-win" class="comic-button btn-next hidden" id="btn-next-memory" onclick="nextLevel('win')">К финалу! 🏆</a>

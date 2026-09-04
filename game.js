@@ -51,12 +51,12 @@ function showScreen(id) {
 function startGame() {
     showScreen('portal');
     initPortal();
-    playSound('sound-click');
+    try { playSound('sound-click'); } catch (_) {}
 }
 
 function restartGame() {
     showScreen('start');
-    playSound('sound-click');
+    try { playSound('sound-click'); } catch (_) {}
     initPortal();
     initInventory();
     initWorld();
@@ -69,8 +69,11 @@ function nextLevel(levelId) {
     if (levelId === 'inventory') initInventory();
     if (levelId === 'world') initWorld();
     if (levelId === 'memory') initMemory();
-    if (levelId === 'win') playSound('sound-win');
-    else playSound('sound-click');
+    if (levelId === 'win') {
+        try { playSound('sound-win'); } catch (_) {}
+    } else {
+        try { playSound('sound-click'); } catch (_) {}
+    }
 }
 
 window.addEventListener('hashchange', () => {
@@ -84,52 +87,52 @@ window.addEventListener('hashchange', () => {
 let crystalsCollected = 0;
 let totalCrystals = 15;
 
+function onCrystalClick(crystal) {
+    if (!crystal || crystal.classList.contains('collected')) return;
+    crystal.classList.add('collected');
+    crystalsCollected++;
+    try { playSound('sound-click'); } catch (_) {}
+    const crystals = document.querySelectorAll('#syllables-container .crystal');
+    const total = crystals.length || 15;
+    if (crystalsCollected >= total) {
+        try { playSound('sound-success'); } catch (_) {}
+        const nextBtn = document.getElementById('btn-next-portal');
+        if (nextBtn) nextBtn.classList.remove('hidden');
+    }
+}
+
 function initPortal() {
     const crystals = document.querySelectorAll('#syllables-container .crystal');
     totalCrystals = crystals.length || 15;
     crystalsCollected = 0;
-    
     crystals.forEach(crystal => {
         crystal.classList.remove('collected');
-        crystal.onclick = function() {
-            if (!this.classList.contains('collected')) {
-                playSound('sound-click');
-                this.classList.add('collected');
-                crystalsCollected++;
-                if (crystalsCollected === totalCrystals) {
-                    playSound('sound-success');
-                    const nextBtn = document.getElementById('btn-next-portal');
-                    if (nextBtn) nextBtn.classList.remove('hidden');
-                }
-            }
-        };
     });
 }
 
 // --- Level 2: Inventory (Words) ---
 let itemsRevealed = 0;
 
+function onChestClick(chest) {
+    if (!chest || chest.classList.contains('revealed')) return;
+    chest.classList.add('revealed');
+    itemsRevealed++;
+    try { playSound('sound-click'); } catch (_) {}
+    const chests = document.querySelectorAll('#chests-container .chest-item');
+    if (itemsRevealed >= chests.length) {
+        setTimeout(() => {
+            try { playSound('sound-success'); } catch (_) {}
+            const nextBtn = document.getElementById('btn-next-inventory');
+            if (nextBtn) nextBtn.classList.remove('hidden');
+        }, 400);
+    }
+}
+
 function initInventory() {
     const chests = document.querySelectorAll('#chests-container .chest-item');
     itemsRevealed = 0;
-    
     chests.forEach(chest => {
         chest.classList.remove('revealed');
-        chest.onclick = function() {
-            if (!this.classList.contains('revealed')) {
-                playSound('sound-click');
-                this.classList.add('revealed');
-                itemsRevealed++;
-                
-                if (itemsRevealed === chests.length) {
-                    setTimeout(() => {
-                        playSound('sound-success');
-                        const nextBtn = document.getElementById('btn-next-inventory');
-                        if (nextBtn) nextBtn.classList.remove('hidden');
-                    }, 500);
-                }
-            }
-        };
     });
 }
 
@@ -143,40 +146,43 @@ const actions = [
 ];
 let actionsCompleted = 0;
 
+function onActionClick(zone, index) {
+    if (!zone) return;
+    zone.classList.add('done');
+    try { playSound('sound-click'); } catch (_) {}
+    const action = actions[index];
+    if (action) {
+        const modalImg = document.getElementById('action-image');
+        const modalTxt = document.getElementById('action-text');
+        const modal = document.getElementById('action-modal');
+        if (modalImg) modalImg.src = action.src;
+        if (modalTxt) modalTxt.textContent = action.text;
+        if (modal) modal.classList.add('active');
+    }
+}
+
 function initWorld() {
     const actionZones = document.querySelectorAll('#actions-container .action-zone');
     actionsCompleted = 0;
-    
-    actionZones.forEach((zone, i) => {
+    actionZones.forEach(zone => {
         zone.classList.remove('done');
-        zone.onclick = function() {
-            if (!this.classList.contains('done')) {
-                playSound('sound-click');
-                this.classList.add('done');
-                
-                const action = actions[i];
-                if (action) {
-                    document.getElementById('action-image').src = action.src;
-                    document.getElementById('action-text').textContent = action.text;
-                    document.getElementById('action-modal').classList.add('active');
-                }
-            }
-        };
     });
 }
 
 function closeActionModal() {
-    playSound('sound-click');
-    document.getElementById('action-modal').classList.remove('active');
+    try { playSound('sound-click'); } catch (_) {}
+    const modal = document.getElementById('action-modal');
+    if (modal) modal.classList.remove('active');
     actionsCompleted++;
     const actionZones = document.querySelectorAll('#actions-container .action-zone');
     if (actionsCompleted >= actionZones.length) {
-        playSound('sound-success');
+        try { playSound('sound-success'); } catch (_) {}
         const nextBtn = document.getElementById('btn-next-world');
         if (nextBtn) nextBtn.classList.remove('hidden');
     }
 }
 
+// --- Level 4: Memory ---
 const itemPhrases = {
     'РАКЕТА': 'Да! В игре была ракета!',
     'КОРОНА': 'Да! В игре была корона!',
@@ -186,79 +192,75 @@ const itemPhrases = {
     'РАЦИЯ': 'Да! В игре была рация!'
 };
 
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+let matches = 0;
+const totalPairs = 6;
+
+function onMemoryClick(card) {
+    if (!card || lockBoard || card === firstCard || card.classList.contains('correct')) return;
+    
+    try { playSound('sound-click'); } catch (_) {}
+    card.classList.add('revealed');
+    
+    if (!firstCard) {
+        firstCard = card;
+        return;
+    }
+    
+    secondCard = card;
+    lockBoard = true;
+    
+    if (firstCard.dataset.name === secondCard.dataset.name) {
+        try { playSound('sound-success'); } catch (_) {}
+        firstCard.classList.add('correct');
+        secondCard.classList.add('correct');
+        const name = card.dataset.name;
+        const feedback = document.getElementById('memory-sentence');
+        if (feedback) feedback.textContent = itemPhrases[name] || `Да! В игре ${name.toLowerCase()}!`;
+        matches++;
+        firstCard = null;
+        secondCard = null;
+        lockBoard = false;
+        
+        if (matches >= totalPairs) {
+            setTimeout(() => {
+                const nextBtn = document.getElementById('btn-next-memory');
+                if (nextBtn) nextBtn.classList.remove('hidden');
+            }, 800);
+        }
+    } else {
+        const feedback = document.getElementById('memory-sentence');
+        if (feedback) feedback.textContent = 'Не угадал...';
+        setTimeout(() => {
+            if (firstCard) firstCard.classList.remove('revealed');
+            if (secondCard) secondCard.classList.remove('revealed');
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+            if (feedback) feedback.textContent = '';
+        }, 900);
+    }
+}
+
 function initMemory() {
     const container = document.getElementById('memory-container');
     if (!container) return;
 
-    // Shuffle cards so pairs are never adjacent or under each other
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+    matches = 0;
+
     const cards = Array.from(container.querySelectorAll('.memory-item'));
     for (let i = cards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         container.appendChild(cards[j]);
     }
 
-    const shuffledCards = Array.from(container.querySelectorAll('.memory-item'));
-    let firstCard = null;
-    let secondCard = null;
-    let lockBoard = false;
-    let matches = 0;
-    const totalPairs = 6;
-    
-    shuffledCards.forEach(card => {
+    cards.forEach(card => {
         card.classList.remove('revealed', 'correct');
-        const img = card.querySelector('img');
-        if (img) img.style.opacity = '0';
-        
-        card.onclick = function() {
-            if (lockBoard || this === firstCard || this.classList.contains('correct')) return;
-            
-            playSound('sound-click');
-            if (img) img.style.opacity = '1';
-            this.classList.add('revealed');
-            
-            if (!firstCard) {
-                firstCard = this;
-                return;
-            }
-            
-            secondCard = this;
-            lockBoard = true;
-            
-            if (firstCard.dataset.name === secondCard.dataset.name) {
-                playSound('sound-success');
-                firstCard.classList.add('correct');
-                secondCard.classList.add('correct');
-                const name = this.dataset.name;
-                const feedback = document.getElementById('memory-sentence');
-                if (feedback) feedback.textContent = itemPhrases[name] || `Да! В игре был(а) ${name.toLowerCase()}!`;
-                matches++;
-                firstCard = null;
-                secondCard = null;
-                lockBoard = false;
-                
-                if (matches === totalPairs) {
-                    setTimeout(() => {
-                        const nextBtn = document.getElementById('btn-next-memory');
-                        if (nextBtn) nextBtn.classList.remove('hidden');
-                    }, 800);
-                }
-            } else {
-                const feedback = document.getElementById('memory-sentence');
-                if (feedback) feedback.textContent = 'Не угадал...';
-                setTimeout(() => {
-                    const img1 = firstCard ? firstCard.querySelector('img') : null;
-                    const img2 = secondCard ? secondCard.querySelector('img') : null;
-                    if (img1) img1.style.opacity = '0';
-                    if (img2) img2.style.opacity = '0';
-                    if (firstCard) firstCard.classList.remove('revealed');
-                    if (secondCard) secondCard.classList.remove('revealed');
-                    firstCard = null;
-                    secondCard = null;
-                    lockBoard = false;
-                    if (feedback) feedback.textContent = '';
-                }, 900);
-            }
-        };
     });
 }
 
