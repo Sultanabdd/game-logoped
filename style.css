@@ -172,8 +172,16 @@ button, .crystal, .chest-item, .action-zone, .memory-item {
   transform: translateY(4px);
 }
 
+a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none !important;
+}
+
 /* Secondary Skip Button on the Left (From Uiverse.io by Voxybuns) */
-.btn-skip {
+.btn-skip,
+.btn-skip:link,
+.btn-skip:visited,
+.btn-skip:hover,
+.btn-skip:active {
   --button_radius: 0.75em;
   --button_color: #e8e8e8;
   --button_outline_color: #000000;
@@ -190,10 +198,15 @@ button, .crystal, .chest-item, .action-zone, .memory-item {
   padding: 0;
   width: 170px;
   height: 52px;
-  text-decoration: none;
+  text-decoration: none !important;
+  color: var(--button_outline_color) !important;
 }
 
-.btn-skip .button_top {
+.btn-skip .button_top,
+.btn-skip:link .button_top,
+.btn-skip:visited .button_top,
+.btn-skip:hover .button_top,
+.btn-skip:active .button_top {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,10 +217,10 @@ button, .crystal, .chest-item, .action-zone, .memory-item {
   border-radius: var(--button_radius);
   padding: 0.75em 1.5em;
   background: var(--button_color);
-  color: var(--button_outline_color);
+  color: var(--button_outline_color) !important;
   transform: translateY(-0.2em);
   transition: transform 0.1s ease;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .btn-skip:hover .button_top {
